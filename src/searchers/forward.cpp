@@ -18,11 +18,11 @@ bool forward::is_finished() const
 std::optional<node> forward::next_state(feature_t feature)
 {
 	// If the feature is invalid or already in the current node, return an empty optional.
-	if (feature > num_features || current_node->has_feature(feature)) return std::nullopt;
+	if (feature > num_features || current_node->contains(feature)) return std::nullopt;
 
 	// Create a new node with the feature added to the current node.
 	node next = *current_node;
-	next.add_feature(feature);
+	next.add(feature);
 	return next;
 }
 

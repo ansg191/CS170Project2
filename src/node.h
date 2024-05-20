@@ -39,12 +39,12 @@ public:
 	[[nodiscard]] const feature_set &get_features() const { return features; }
 
 	/// Adds a feature to the set.
-	void add_feature(feature_t feature) { features.insert(feature); }
+	void add(feature_t feature) { features.insert(feature); }
 	/// Removes a feature from the set.
-	void remove_feature(feature_t feature) { features.erase(feature); }
+	void remove(feature_t feature) { features.erase(feature); }
 
 	/// Returns true if the set contains the given feature.
-	[[nodiscard]] bool has_feature(feature_t feature) const
+	[[nodiscard]] bool contains(feature_t feature) const
 	{
 		return features.contains(feature);
 	}

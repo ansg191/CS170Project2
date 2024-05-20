@@ -15,11 +15,11 @@ bool backward::is_finished() const { return current_node->empty(); }
 std::optional<node> backward::next_state(feature_t feature)
 {
 	// If the feature is invalid or not in the current set, return an empty optional.
-	if (is_finished() || !current_node->has_feature(feature)) return std::nullopt;
+	if (is_finished() || !current_node->contains(feature)) return std::nullopt;
 
 	// Create a new node with the feature removed from the current node.
 	node next = *current_node;
-	next.remove_feature(feature);
+	next.remove(feature);
 	return next;
 }
 
