@@ -15,6 +15,9 @@ public:
 	[[nodiscard]]
 	static data load(const std::string &filename);
 
+	/// Min-max normalize the features
+	void normalize();
+
 	[[nodiscard]] uint8_t label(size_t index) const { return labels[index]; }
 	[[nodiscard]] double feature(size_t index, feature_t feature) const
 	{

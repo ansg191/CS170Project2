@@ -63,3 +63,16 @@ data data::load(const std::string &filename)
 
 	return {std::move(labels), std::move(features)};
 }
+
+void data::normalize()
+{
+	// Normalize each feature
+	for (auto &feature: features) {
+		// Find the minimum and maximum values
+		double min = *std::min_element(feature.begin(), feature.end());
+		double max = *std::max_element(feature.begin(), feature.end());
+
+		// Normalize the feature
+		for (auto &value: feature) { value = (value - min) / (max - min); }
+	}
+}
