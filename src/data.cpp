@@ -9,7 +9,7 @@
 
 #include "data.h"
 
-data::data(std::vector<uint8_t> labels, std::vector<std::vector<double>> features)
+data::data(std::vector<label_t> labels, std::vector<std::vector<double>> features)
     : labels(std::move(labels)), features(std::move(features))
 {
 	// Assert that the data is not empty
@@ -29,7 +29,7 @@ data data::load(const std::string &filename)
 	}
 
 	// Structure to store the data in
-	std::vector<uint8_t> labels;
+	std::vector<label_t> labels;
 	std::vector<std::vector<double>> features; // Stored in column-major order
 
 	// Read the data from the file line by line
@@ -39,11 +39,11 @@ data data::load(const std::string &filename)
 		// Read the label
 		double label = -1;
 		ss >> label;
-		if (label < 0 || label > std::numeric_limits<uint8_t>::max()) {
+		if (label < LABEL_MIN || label > LABEL_MAX) {
 			std::cerr << "Invalid label in line: " << line << std::endl;
 			exit(1);
 		}
-		labels.push_back(static_cast<uint8_t>(label));
+		labels.push_back(static_cast<label_t>(label));
 
 		// Read the features into the features vector
 		size_t feature_index = 0;
@@ -77,7 +77,7 @@ void data::normalize()
 	}
 }
 
-uint8_t data_view::label(size_t index) const
+label_t data_view::label(size_t index) const
 {
 	assert(index < len);
 	size_t wrapped_index = (start + index) % data.size();

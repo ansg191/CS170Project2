@@ -54,7 +54,7 @@ private:
 	 * @param index The index of the data point in the view to be predicted.
 	 * @return The predicted label of the data point.
 	 */
-	[[nodiscard]] uint8_t predict(const data_view &view, size_t index) const;
+	[[nodiscard]] label_t predict(const data_view &view, size_t index) const;
 };
 
 } // namespace classifiers

@@ -37,8 +37,8 @@ double nearest_neighbor::test(data_view view) const
 
 	// For each data point in the test data, find the k nearest neighbors in the training data.
 	for (size_t i = 0; i < view.size(); ++i) {
-		uint8_t predicted_label = predict(view, i);
-		uint8_t actual_label = view.label(i);
+		label_t predicted_label = predict(view, i);
+		label_t actual_label = view.label(i);
 
 		if (predicted_label == actual_label) correct_predictions++;
 	}
@@ -46,10 +46,11 @@ double nearest_neighbor::test(data_view view) const
 	// Return the accuracy of the classifier.
 	return static_cast<double>(correct_predictions) / static_cast<double>(view.size());
 }
-uint8_t nearest_neighbor::predict(const data_view &view, size_t index) const
+
+label_t nearest_neighbor::predict(const data_view &view, size_t index) const
 {
 	// k-nearest distances
-	std::vector<std::pair<uint8_t, double>> distances(k,
+	std::vector<std::pair<label_t, double>> distances(k,
 	                                                  {0, std::numeric_limits<double>::max()});
 
 	// For each data point in the training data, calculate the Euclidean distance.
@@ -78,7 +79,7 @@ uint8_t nearest_neighbor::predict(const data_view &view, size_t index) const
 	}
 
 	// Return the most common label among the k-nearest neighbors.
-	size_t label_counts[UINT8_MAX] = {0};
+	size_t label_counts[LABEL_MAX] = {0};
 	for (const auto &[label, _]: distances) label_counts[label]++;
 
 	auto most_common_label = std::max_element(std::begin(label_counts), std::end(label_counts));

@@ -9,6 +9,11 @@
 
 #include "node.h"
 
+typedef uint8_t label_t;
+
+#define LABEL_MIN 0
+#define LABEL_MAX UINT8_MAX
+
 /**
  * @class data
  * @brief Represents a dataset with labels and features.
@@ -26,7 +31,7 @@ public:
 	void normalize();
 
 	/// Get the label of a data point.
-	[[nodiscard]] uint8_t label(size_t index) const { return labels[index]; }
+	[[nodiscard]] label_t label(size_t index) const { return labels[index]; }
 	/// Get the value of a feature of a data point.
 	[[nodiscard]] double feature(size_t index, feature_t feature) const
 	{
@@ -36,11 +41,11 @@ public:
 	[[nodiscard]] size_t size() const { return labels.size(); }
 
 private:
-	std::vector<uint8_t> labels;
+	std::vector<label_t> labels;
 	/// Stored in column-major order
 	std::vector<std::vector<double>> features;
 
-	data(std::vector<uint8_t> labels, std::vector<std::vector<double>> features);
+	data(std::vector<label_t> labels, std::vector<std::vector<double>> features);
 };
 
 /**
@@ -60,7 +65,7 @@ public:
 	{}
 
 	/// Get the label of a data point.
-	[[nodiscard]] uint8_t label(size_t index) const;
+	[[nodiscard]] label_t label(size_t index) const;
 	/// Get the value of a feature of a data point.
 	[[nodiscard]] double feature(size_t index, feature_t feature) const;
 	/// Get the number of data points in the view.
