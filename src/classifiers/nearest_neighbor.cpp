@@ -78,15 +78,11 @@ uint8_t nearest_neighbor::predict(const data_view &view, size_t index) const
 	}
 
 	// Return the most common label among the k-nearest neighbors.
-	std::unordered_map<uint8_t, size_t> label_counts;
-
+	size_t label_counts[UINT8_MAX] = {0};
 	for (const auto &[label, _]: distances) label_counts[label]++;
 
-	auto most_common_label = std::max_element(
-	        label_counts.begin(), label_counts.end(),
-	        [](const auto &lhs, const auto &rhs) { return lhs.second < rhs.second; });
-
-	return most_common_label->first;
+	auto most_common_label = std::max_element(std::begin(label_counts), std::end(label_counts));
+	return std::distance(label_counts, most_common_label);
 }
 
 } // namespace classifiers
