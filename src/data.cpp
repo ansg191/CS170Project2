@@ -76,3 +76,18 @@ void data::normalize()
 		for (auto &value: feature) { value = (value - min) / (max - min); }
 	}
 }
+
+uint8_t data_view::label(size_t index) const
+{
+	assert(index < len);
+	size_t wrapped_index = (start + index) % data.size();
+	return data.label(wrapped_index);
+}
+
+double data_view::feature(size_t index, feature_t feature) const
+{
+	assert(index < len);
+	assert(this->features.contains(feature));
+	size_t wrapped_index = (start + index) % data.size();
+	return data.feature(wrapped_index, feature);
+}
