@@ -39,6 +39,8 @@ public:
 	}
 	/// Get the number of data points.
 	[[nodiscard]] size_t size() const { return labels.size(); }
+	/// Get the number of features.
+	[[nodiscard]] size_t num_features() const { return features.size(); }
 
 private:
 	std::vector<label_t> labels;
