@@ -26,9 +26,9 @@ double nearest_neighbor::test(data_view view) const
 	// If the training data is not available, throw an exception.
 	if (!training_data.has_value()) throw std::runtime_error("Training data is not available.");
 
-	// Check that the number of features in the test data is the same as the number of features
-	// in the training data.
-	if (view.get_features().size() != training_data->get_features().size())
+	// Check that the features in the test data is the same as the features in the training
+	// data.
+	if (view.get_features() != training_data->get_features())
 		throw std::runtime_error("The number of features in the test data is not the same "
 		                         "as the number of features in the training data.");
 
