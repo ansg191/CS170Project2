@@ -29,6 +29,8 @@ public:
 	}
 	/// Constructs a feature set with the given features
 	explicit node(feature_set features) : features(std::move(features)) {}
+	/// Constructs from a initializer list
+	node(std::initializer_list<feature_t> features) : features(features) {}
 
 	/// Equality operator
 	bool operator==(const node &rhs) const { return features == rhs.features; }
