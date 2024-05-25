@@ -46,10 +46,7 @@ public:
 	void remove(feature_t feature) { features.erase(feature); }
 
 	/// Returns true if the set contains the given feature.
-	[[nodiscard]] bool contains(feature_t feature) const
-	{
-		return features.contains(feature);
-	}
+	[[nodiscard]] bool contains(feature_t feature) const { return features.contains(feature); }
 
 	/// Returns the number of features in the set.
 	[[nodiscard]] size_t size() const { return features.size(); }
