@@ -31,14 +31,14 @@ public:
 	 * @param dataset The dataset to be used for training and evaluation.
 	 * @param k The number of folds to use for cross-validation.
 	 */
-	k_fold(classifier *classifier, data dataset, size_t k)
-	    : classifier(classifier), dataset(std::move(dataset)), k(k)
+	k_fold(std::unique_ptr<classifier> classifier, data dataset, size_t k)
+	    : classifier(std::move(classifier)), dataset(std::move(dataset)), k(k)
 	{}
 
 	double evaluate(const node &features) override;
 
 private:
-	classifier *classifier;
+	std::unique_ptr<classifier> classifier;
 	data dataset;
 	size_t k;
 };
